@@ -11,7 +11,7 @@ const Signin = ({history}) => {
 
   const submit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:3000/users/login', data)
+    const response = await axios.post('https://sample12342.herokuapp.com/users/login', data)
     console.log(response.data)
     history.push(`/showProfile/${response.data.id}`)
   }

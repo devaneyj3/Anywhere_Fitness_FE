@@ -6,7 +6,7 @@ const Profile = ({match}) => {
   const [ data, setData ] = useState([])
 
   useEffect( async() => {
-    const response = await axios.get(`http://localhost:3000/users/${id}`)
+    const response = await axios.get(`https://sample12342.herokuapp.com/users/${id}`)
     console.log(response.data)
     setData(response.data)
   }, [])
