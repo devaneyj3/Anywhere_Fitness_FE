@@ -1,0 +1,19 @@
+h1 {
+  text-transform: capitalize;
+}
+
+.classes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .card {
+    border: 1px solid #8B90A0;
+    padding: 5%;
+    .class-info {
+      margin: 10% 10%;
+      p {
+        font-size:large
+      }
+    }
+  }
+}

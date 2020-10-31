@@ -1,0 +1,22 @@
+
+.body {
+  display: flex;
+  width: 100%;
+  .login {
+      width: 100%;
+      line-height: 2em;
+  }
+  img {
+      width: 50%;
+      border-radius: 15%;
+  }
+}
+
+form {
+  margin: 5%;
+  input {
+      width: 80%;
+      margin: 5%; 
+      padding: 1%;
+  }
+}

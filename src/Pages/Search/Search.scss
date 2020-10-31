@@ -1,0 +1,36 @@
+
+.header {
+    display: flex;
+    justify-content: space-between;
+        h1 {
+            font-size:3em;
+            margin: 1% 2%;
+        }
+        section {
+            display: flex;
+            justify-content: space-around;
+            width: 30%;
+            border: 1px solid #8B90A0;
+            box-sizing: border-box;
+            border-radius: 30px;  
+            align-items: center;
+            margin: 1%;
+            input {
+                width: 25% vw;
+                padding: .5%;
+            }
+        }
+}
+
+.picker {
+    display: flex;
+    justify-content: space-around;
+    padding: 1%;
+    margin: 4%;
+    select {
+        border: 1px solid #8B90A0;
+        box-sizing: border-box;
+        border-radius: 30px;
+        padding: 1%;
+    }
+}
