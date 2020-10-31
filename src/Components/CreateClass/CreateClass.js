@@ -22,7 +22,6 @@ const CreateClass = ({ match }) => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    data.id = Date.now()
     data.instructor_id = id
     data.instructor_name = name
     data.attendees = 0
