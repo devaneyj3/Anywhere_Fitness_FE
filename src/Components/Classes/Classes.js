@@ -8,9 +8,10 @@ const Classes = ({ reserve, clientID, setMessage, data }) => {
     console.log('session in class',session)
     const reserveClass = async (session, e) => {
         e.target.setAttribute("disabled", "disabled");
-        axiosWithAuth().post(`clients/${clientID}/classes/${session.id}`);
+        await axiosWithAuth().post(`clients/${clientID}/classes/${session.id}`);
         setMessage(`You have added this ${session.name}`);
-        axiosWithAuth().put(`classes/${session.id}/`, {
+        // TODO: class atendee number is not going up in the reserve page for the client but it is when I click on the reserve button for the next class
+        await axiosWithAuth().put(`classes/${session.id}/`, {
             ...session,
             attendees: (session.attendees += 1),
         });

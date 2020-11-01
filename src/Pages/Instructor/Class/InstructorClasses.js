@@ -10,17 +10,12 @@ const InstructorClasses = ({ match, location }) => {
     const [ classes, setClasses ] = useState([])
 
     const { setSession, session  } = useContext(InitialContext)
-
-    console.log('the session in the instructor class page is, ', session)
-
-
     const { name, id } = match.params;
 
     useEffect(() => {
         const getClasses = async () =>  {
             const sessions = await axiosWithAuth().get(`/instructors/${id}/classes/`)
             setClasses(sessions.data)
-            console.log('call to get instructor classes brings back, ', sessions.data)
         }
         getClasses()
     }, [])
@@ -28,9 +23,12 @@ const InstructorClasses = ({ match, location }) => {
     const deleteClass = async (item) => {
         const classId = await axiosWithAuth().delete(`/classes/${item.id}`);
         console.log('classId is', classId.data, 'and type, ', typeof(classId.data))
-        console.log('item.id is', item.id, 'and type, ', typeof(item.id))
+        console.log('session.data before filter in delete class function is, ', session)
+
+        //TODO: filter for state is not working 
         setSession( session.filter(({ id }) => id !== classId.data));
-        setClasses( session.filter(({ id }) => id !== classId.data));
+        console.log('session.data before filter in delete class function is, ', session)
+        setClasses( classes.filter(({ id }) => id !== classId.data));
 
     };
     return (

@@ -7,7 +7,7 @@ export const InitialContext = createContext();
 export const FitnessContext = (props) => {
   // setting up state and functions for InitialContext
   const [session, setSession] = useState([]);
-  const [clients, setClients] = useState();
+  const [clients, setClients] = useState([]);
   const [instructors, setInstructors] = useState([]);
 
   useEffect(() => {

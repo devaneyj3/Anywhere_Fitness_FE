@@ -47,7 +47,6 @@ const Form = ({ name, password, text, setter, state, endPoint, setMessage, setAp
           username: "",
           password: "",
         });
-        console.log(res)
         if (res.data.username) {
           setMessage(`${res.data.username} has successfully signed up`)
         }

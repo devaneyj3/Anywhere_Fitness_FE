@@ -12,7 +12,7 @@ const CreateClass = ({ match }) => {
   const [data, setData] = useState({
     name: "",
     type: "",
-    startTime: "",
+    startTime:"",
     duration: "",
     intensityLevel: "",
     location: "",
@@ -22,11 +22,14 @@ const CreateClass = ({ match }) => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    data.instructor_id = id
+    data.instructor_id = parseInt(id)
     data.instructor_name = name
     data.attendees = 0
     await axiosWithAuth().post(`/instructors/${id}/classes`, data);
     setMessage("You have successfully made the class");
+    data.maxClassSize = parseInt(data.maxClassSize)
+    data.startTime = parseInt(data.startTime);
+    data.duration = parseInt(data.duration)
     setSession([...session, data]);
     setData({
       name: "",
