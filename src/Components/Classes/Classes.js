@@ -50,7 +50,7 @@ const Classes = ({ reserve, clientID, setMessage, data }) => {
                                     disabled={
                                         data.length > 1 &&
                                         data.filter(
-                                            (item) => item.id === session.id
+                                            (item) => item.id === data.id
                                         )
                                             ? true
                                             : false
