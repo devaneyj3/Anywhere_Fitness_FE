@@ -66,7 +66,7 @@ const CreateClass = ({ match }) => {
           placeholder="Type"
         ></input>
         <input
-          type="number"
+          type="datetime-local"
           name="startTime"
           value={data.startTime}
           onChange={handleChange}
