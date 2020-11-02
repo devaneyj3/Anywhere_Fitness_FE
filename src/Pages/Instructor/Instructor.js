@@ -26,22 +26,13 @@ const Instructor = () => {
                     <img src={yoga} alt="yoga" />
                     <section className="login">
                         <h2>Log in with your instructor credentials</h2>
-                        {message ? (
-                            <Alert color="success">{message}</Alert>
-                        ) : apiError ? (
-                            <Alert color="danger">{apiError}</Alert>
-                        ) : null}
                         {register ? (
                             <SignUp
-                                setMessage={setMessage}
-                                setApiError={setApiError}
                                 role="instructors"
                                 registerForm={switchForm}
                             />
                         ) : (
                             <Login
-                                setMessage={setMessage}
-                                setApiError={setApiError}
                                 role="instructors"
                                 registerForm={switchForm}
                             />

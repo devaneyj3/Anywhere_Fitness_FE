@@ -30,7 +30,7 @@ export const FitnessContext = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [setSession]);
   useEffect(() => {
     axiosWithAuth()
       .get("/instructors")

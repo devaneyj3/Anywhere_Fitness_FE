@@ -4,17 +4,18 @@ import { Alert, Table, Button } from "reactstrap";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 
 const Classes = ({ reserve, clientID, setMessage, data }) => {
-    const { session } = useContext(InitialContext);
+    const { session, setSession } = useContext(InitialContext);
     console.log('session in class',session)
-    const reserveClass = async (session, e) => {
+    const reserveClass = async (classes, e) => {
         e.target.setAttribute("disabled", "disabled");
-        await axiosWithAuth().post(`clients/${clientID}/classes/${session.id}`);
-        setMessage(`You have added this ${session.name}`);
+        await axiosWithAuth().post(`clients/${clientID}/classes/${classes.id}`);
+        setMessage(`You have added this ${classes.name}`);
         // TODO: class atendee number is not going up in the reserve page for the client but it is when I click on the reserve button for the next class
-        await axiosWithAuth().put(`classes/${session.id}/`, {
-            ...session,
-            attendees: (session.attendees += 1),
+        await axiosWithAuth().put(`classes/${classes.id}/`, {
+            ...classes,
+            attendees: (classes.attendees += 1),
         });
+        setSession([...session, {attendees : session.attendees += 1}] )
     };
 //
     return (
@@ -40,12 +41,12 @@ const Classes = ({ reserve, clientID, setMessage, data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {session.map((session, index) => (
-                        <tr key={session.id}>
+                    {session.map((classes, index) => (
+                        <tr key={classes.id}>
                             {reserve ? (
                                 <Button
-                                    name={session.id}
-                                    onClick={(e) => reserveClass(session, e)}
+                                    name={classes.id}
+                                    onClick={(e) => reserveClass(classes, e)}
                                     color="success"
                                     disabled={
                                         data.length > 1 &&
@@ -61,17 +62,17 @@ const Classes = ({ reserve, clientID, setMessage, data }) => {
                             ) : (
                                 <th scope="row">{index + 1}</th>
                             )}
-                            <td>{session.name}</td>
-                            <td>{session.type}</td>
+                            <td>{classes.name}</td>
+                            <td>{classes.type}</td>
                             <td style={{ textTransform: "capitalize" }}>
-                                {session.instructor_name}
+                                {classes.instructor_name}
                             </td>
-                            <td>{session.duration} hr</td>
-                            <td>{session.startTime} PM</td>
-                            <td>{session.intensityLevel}</td>
-                            <td>{session.location}</td>
-                            <td>{session.attendees}</td>
-                            <td>{session.maxClassSize}</td>
+                            <td>{classes.duration} hr</td>
+                            <td>{classes.startTime} PM</td>
+                            <td>{classes.intensityLevel}</td>
+                            <td>{classes.location}</td>
+                            <td>{classes.attendees}</td>
+                            <td>{classes.maxClassSize}</td>
                         </tr>
                     ))}
                 </tbody>

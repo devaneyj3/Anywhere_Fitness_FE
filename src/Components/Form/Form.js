@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { register, login } from '../../redux/actions'
 import { Button, Alert } from "reactstrap";
-import axiosWithAuth from "../../utils/axiosWithAuth";
 import * as Yup from "yup";
 
-const Form = ({ name, password, text, setter, state, endPoint, setMessage, setApiError, role }) => {
+const Form = ({ text, setter, state, endPoint, role, register, login, setLoggedIn }) => {
   const formSchema = Yup.object().shape({
     name: Yup.string().min(2, "Requires at least 2 characters"),
     password: Yup.string().min(8, "Requires a minimum of 8 characters"),
@@ -36,36 +37,23 @@ const Form = ({ name, password, text, setter, state, endPoint, setMessage, setAp
     validateChange(e);
   };
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    axiosWithAuth()
-      .post(`/${role}/${endPoint}`, state)
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        setter({
-          username: "",
-          password: "",
-        });
-        if (res.data.username) {
-          setMessage(`${res.data.username} has successfully signed up`)
-        }
-        if (res.data.message) {
-          setMessage(res.data.message)
-        }
-        if (role === 'clients' && text === 'Log in') { 
-          setTimeout(() =>{
-            history.push(`Client/${res.data.id}/${res.data.name}`)
-          }, 1000)
-        } else if (role === 'instructors'&& text === 'Log in' ){
-          setTimeout(() =>{
-            history.push(`Instructor/${res.data.id}/${res.data.name}`)
-          }, 1000)
-        }
-      })
-      .catch((error) => {
-        setApiError(error.response.data.message)
-      });
+    const handleSubmit = (e, id) => {
+      e.preventDefault();
+    if(endPoint == 'register') {
+      register(state)
+    } else {
+      login(state)
+      setLoggedIn(true)
+    }
+    //   .then((res) => {
+    //     if (role === 'clients' && text === 'Log in') { 
+    //       setTimeout(() =>{
+    //         history.push(`Client/${res.data.id}/${res.data.name}`)
+    //       }, 1000)
+    //     } else if (role === 'instructors'&& text === 'Log in' ){
+    //       setTimeout(() =>{
+    //         history.push(`Instructor/${res.data.id}/${res.data.name}`)
+    //       }, 1000)
     };
     return (
       <>
@@ -74,7 +62,7 @@ const Form = ({ name, password, text, setter, state, endPoint, setMessage, setAp
           type="text"
           name="username"
           placeholder="Enter User Name"
-          value={name}
+          value={state.username}
           onChange={handleChange}
         />
         {errors.username.length > 2 ? (
@@ -83,7 +71,7 @@ const Form = ({ name, password, text, setter, state, endPoint, setMessage, setAp
         <input
           type="password"
           placeholder="Enter User Password"
-          value={password}
+          value={state.password}
           name="password"
           onChange={handleChange}
         />
@@ -98,4 +86,4 @@ const Form = ({ name, password, text, setter, state, endPoint, setMessage, setAp
   );
 };
 
-export default Form;
+export default connect(null, { register, login })(Form);

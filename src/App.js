@@ -14,7 +14,6 @@ import InstructorClasses from "./Pages/Instructor/Class/InstructorClasses";
 import ReserveClass from "./Pages/ReserveClass/ReserveClass";
 
 function App() {
-    console.log('hello')
     return (
         <>
             <div className="App">

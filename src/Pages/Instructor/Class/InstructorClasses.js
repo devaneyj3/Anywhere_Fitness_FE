@@ -23,9 +23,10 @@ const InstructorClasses = ({ match, location }) => {
     const deleteClass = async (item) => {
         const classId = await axiosWithAuth().delete(`/classes/${item.id}`);
         console.log('classId is', classId.data, 'and type, ', typeof(classId.data))
+        console.log('item.id is', item.id, 'and type, ', typeof(item.id))
         console.log('session.data before filter in delete class function is, ', session)
 
-        //TODO: filter for state is not working 
+        //TODO: filter for state is not working. When I call delete on a class that class still shows up in the class search and reserve class. 
         setSession( session.filter(({ id }) => id !== classId.data));
         console.log('session.data before filter in delete class function is, ', session)
         setClasses( classes.filter(({ id }) => id !== classId.data));

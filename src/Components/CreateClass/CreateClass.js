@@ -71,6 +71,7 @@ const CreateClass = ({ match }) => {
           value={data.startTime}
           onChange={handleChange}
           placeholder="Start Time"
+          
         ></input>
         <input
           type="number"
