@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import {connect} from "react-redux";
 import Form from "../Form/Form";
 import {Alert} from "reactstrap";
 

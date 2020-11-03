@@ -1,12 +1,10 @@
-import React, { useState, useContext } from "react";
-import axiosWithAuth from "../../utils/axiosWithAuth";
-import { InitialContext } from "../../contexts/InitialContext";
+import React, { useState } from "react";
+import { connect} from "react-redux";
+import { create_class } from '../../redux/actions/classes_actions';
 import Nav from "../Nav/Nav";
 import { Alert } from "reactstrap";
 
-const CreateClass = ({ match }) => {
-  const { session, setSession } = useContext(InitialContext);
-  const [message, setMessage] = useState("");
+const CreateClass = ({ match, create_class, message }) => {
   const { id, name } = match.params;
   
   const [data, setData] = useState({
@@ -21,16 +19,15 @@ const CreateClass = ({ match }) => {
   
   
   const handleSubmit = async (e) => {
+    console.log('create class')
     e.preventDefault();
     data.instructor_id = parseInt(id)
     data.instructor_name = name
     data.attendees = 0
-    await axiosWithAuth().post(`/instructors/${id}/classes`, data);
-    setMessage("You have successfully made the class");
+    create_class(data, id)
     data.maxClassSize = parseInt(data.maxClassSize)
     data.startTime = parseInt(data.startTime);
     data.duration = parseInt(data.duration)
-    setSession([...session, data]);
     setData({
       name: "",
       type: "",
@@ -107,4 +104,11 @@ const CreateClass = ({ match }) => {
   );
 };
 
-export default CreateClass;
+const mapStateToProps = state => {
+  const { classes_createdMessage } = state.ClassesReducer;
+  return {
+    message: classes_createdMessage
+  }
+}
+
+export default connect(mapStateToProps, { create_class })(CreateClass);

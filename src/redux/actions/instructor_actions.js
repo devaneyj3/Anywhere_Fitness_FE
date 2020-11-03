@@ -1,7 +1,5 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 export const INSTRUCTOR_REGISTER = "INSTRUCTOR_REGISTER";
-export const INSTRUCTOR_CREATECLASS = "INSTRUCTOR_CREATECLASS";
-export const INSTRUCTOR_DELETECLASS = "INSTRUCTOR_DELETECLASS";
 export const INSTRUCTOR_LOGIN = "INSTRUCTOR_LOGIN";
 
 export const instructor_register = (data) => async (dispatch) => {

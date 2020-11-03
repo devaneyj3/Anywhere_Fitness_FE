@@ -28,6 +28,7 @@ const Login = (props) => {
 
     return (
         <>
+        {/* TODO: YOU CAN STILL SIGN IN WITH EMPTY FIELDS */}
             {props.login_message ? (
                 <Alert color="success">{props.login_message}</Alert>
             ) : props.login_apiError ? (
