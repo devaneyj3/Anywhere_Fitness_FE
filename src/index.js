@@ -8,7 +8,7 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import reducer from "./redux/reducer";
+import reducer from "./redux/root_reducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const middleware = [logger, thunk];

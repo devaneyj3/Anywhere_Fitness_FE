@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import {connect} from "react-redux";
 import Form from "../Form/Form";
+import {Alert} from "reactstrap";
 
-const SignUp = ({ setMessage, setApiError, role, registerForm }) => {
+const SignUp = (props) => {
     const [signup, setSignup] = useState({
         username: "",
         password: "",
@@ -9,20 +11,30 @@ const SignUp = ({ setMessage, setApiError, role, registerForm }) => {
 
     return (
         <>
+            {props.message ? (
+                <Alert color="success">{props.message}</Alert>
+            ) : props.apiError ? (
+                <Alert color="danger">{props.apiError}</Alert>
+            ) : null}
             <Form
-                name={signup.username}
-                password={signup.password}
                 setter={setSignup}
                 text="Sign Up"
                 state={signup}
                 endPoint="register"
-                setMessage={setMessage}
-                setApiError={setApiError}
-                role={role}
+                role={props.role}
             />
-            <span onClick={registerForm}>Log In</span>
+            <span onClick={props.registerForm}>Log In</span>
         </>
     );
 };
 
-export default SignUp;
+const mapStateToProps = data => {
+    let { register_message, register_apiError } = data.InstructorReducer
+    return {
+        message: register_message,
+        apiError: register_apiError
+    }
+    
+}
+
+export default connect(mapStateToProps, {})(SignUp);

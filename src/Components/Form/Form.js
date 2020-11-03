@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { register, login } from '../../redux/actions'
+import { register, login } from '../../redux/instructor_actions'
 import { Button, Alert } from "reactstrap";
 import * as Yup from "yup";
 
-const Form = ({ text, setter, state, endPoint, role, register, login, setLoggedIn }) => {
+const Form = ({ text, setter, state, endPoint, role, register, login }) => {
   const formSchema = Yup.object().shape({
     name: Yup.string().min(2, "Requires at least 2 characters"),
     password: Yup.string().min(8, "Requires a minimum of 8 characters"),
@@ -15,8 +14,6 @@ const Form = ({ text, setter, state, endPoint, role, register, login, setLoggedI
     username: "",
     password: "",
   });
-
-  const history = useHistory()
 
   const validateChange = (e) => {
     if (e.target.name === "name" || e.target.name === "password") {
@@ -43,9 +40,7 @@ const Form = ({ text, setter, state, endPoint, role, register, login, setLoggedI
       register(state)
     } else {
       login(state)
-      setLoggedIn(true)
     }
-    //   .then((res) => {
     //     if (role === 'clients' && text === 'Log in') { 
     //       setTimeout(() =>{
     //         history.push(`Client/${res.data.id}/${res.data.name}`)

@@ -11,12 +11,11 @@ const Login = (props) => {
         username: "",
         password: "",
     });
-    const [ loggedIn, setLoggedIn] = useState(false)
     const history = useHistory();
 
-    if (loggedIn) {
+    if (props.status === 200) {
         setTimeout(() => {
-            history.push(`/Client/${props.id}/${props.name}`);
+            history.push(`/Instructor/${props.id}/${props.name}`);
         }, 1000);
     }
     
@@ -32,7 +31,6 @@ const Login = (props) => {
                 state={login}
                 setter={setLogin}
                 text="Log in"
-                setLoggedIn={setLoggedIn}
                 endPoint="login"
                 role={props.role}
             />
@@ -42,11 +40,13 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => {
+    let {login_message, login_apiError, status, name, id} = state.InstructorReducer
     return {
-        message: state.message,
-        apiError: state.apiError,
-        name: state.name,
-        id: state.id,
+        message: login_message,
+        apiError: login_apiError,
+        name: name,
+        id: id,
+        status: status
     };
 };
 

@@ -8,7 +8,6 @@ export const FitnessContext = (props) => {
   // setting up state and functions for InitialContext
   const [session, setSession] = useState([]);
   const [clients, setClients] = useState([]);
-  const [instructors, setInstructors] = useState([]);
 
   useEffect(() => {
     axiosWithAuth()
@@ -31,19 +30,9 @@ export const FitnessContext = (props) => {
         console.log(err);
       });
   }, [setSession]);
-  useEffect(() => {
-    axiosWithAuth()
-      .get("/instructors")
-      .then((res) => {
-        setInstructors(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   return (
     <>
-    <InitialContext.Provider value={{session, setSession, clients, instructors}}>
+    <InitialContext.Provider value={{session, setSession, clients}}>
       {props.children}
     </InitialContext.Provider>
     </>
