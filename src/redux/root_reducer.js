@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import InstructorReducer from './instructor_reducer';
+import InstructorReducer from './reducers/instructor_reducer';
+import ClientReducer from './reducers/client_reducer';
 
 export default combineReducers({
-  InstructorReducer
+  InstructorReducer,
+  ClientReducer
 })

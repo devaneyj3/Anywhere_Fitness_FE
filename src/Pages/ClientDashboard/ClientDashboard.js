@@ -18,7 +18,7 @@ const ClientDashboard = ({ match }) => {
 
     return (
         <>
-            <Nav url="/" />
+            <Nav url="/" loggedIn='true' />
             <h1>Hello {name}</h1>
             <Link
                 to={{

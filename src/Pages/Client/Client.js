@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import Nav from "../../Components/Nav/Nav";
-import { Alert } from "reactstrap";
+import { connect } from "react-redux"
 import SignUp from "../../Components/SignUp/SignUp";
 import Login from "../../Components/Login/Login";
 import yoga from "../../images/yoga.jpg";
 import "./Client.scss";
 
-const Client = () => {
+const Client = (props) => {
     const [register, setRegister] = useState(false);
-    const [message, setMessage] = useState("");
-
-    const [apiError, setApiError] = useState("");
 
     const registerForm = (e) => {
         setRegister(!register);
-        setMessage("");
-        setApiError("");
     };
 
     return (
@@ -26,24 +21,17 @@ const Client = () => {
                     <img src={yoga} alt="yoga" />
                     <section className="login">
                         <h2>Looking to get healthy.</h2>
-                        {message ? (
-                            <Alert color="success">{message}</Alert>
-                        ) : apiError ? (
-                            <Alert color="danger">{apiError}</Alert>
-                        ) : null}
                         {register ? (
                             <SignUp
-                                setMessage={setMessage}
-                                setApiError={setApiError}
                                 role="clients"
                                 registerForm={registerForm}
+                                {...props}
                             />
                         ) : (
                             <Login
-                                setMessage={setMessage}
-                                setApiError={setApiError}
                                 role="clients"
                                 registerForm={registerForm}
+                                {...props}
                             />
                         )}
                     </section>
@@ -53,4 +41,16 @@ const Client = () => {
     );
 };
 
-export default Client;
+const mapStateToProps = (state, ) => {
+    let {client_login_message, client_login_apiError, client_status, client_name, client_id} = state.ClientReducer
+        return {
+            message: client_login_message,
+            apiError: client_login_apiError,
+            name: client_name,
+            id: client_id,
+            status: client_status
+        };
+    
+};
+
+export default connect(mapStateToProps, {})(Client);

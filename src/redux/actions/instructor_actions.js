@@ -1,10 +1,10 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
+import axiosWithAuth from "../../utils/axiosWithAuth";
 export const INSTRUCTOR_REGISTER = "INSTRUCTOR_REGISTER";
 export const INSTRUCTOR_CREATECLASS = "INSTRUCTOR_CREATECLASS";
 export const INSTRUCTOR_DELETECLASS = "INSTRUCTOR_DELETECLASS";
 export const INSTRUCTOR_LOGIN = "INSTRUCTOR_LOGIN";
 
-export const register = (data) => async (dispatch) => {
+export const instructor_register = (data) => async (dispatch) => {
 
   try {
     await axiosWithAuth().post("/instructors/register", data);
@@ -17,7 +17,7 @@ export const register = (data) => async (dispatch) => {
     dispatch({ type: INSTRUCTOR_REGISTER, apiError: err.response.data.message });
   }
 };
-export const login = (data) => async (dispatch) => {
+export const instructor_login = (data) => async (dispatch) => {
 
   try {
     const response = await axiosWithAuth().post(`/instructors/login`, data);

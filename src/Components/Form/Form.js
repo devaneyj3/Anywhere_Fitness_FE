@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux'
-import { register, login } from '../../redux/instructor_actions'
+import { connect } from "react-redux";
+import { instructor_register, instructor_login } from "../../redux/actions/instructor_actions";
+import {
+  client_register,
+  client_login,
+} from "../../redux/actions/client_actions";
 import { Button, Alert } from "reactstrap";
 import * as Yup from "yup";
 
-const Form = ({ text, setter, state, endPoint, role, register, login }) => {
+const Form = ({ text, setter, state, endPoint, role, instructor_register, instructor_login, client_register, client_login, setLoggedIn }) => {
   const formSchema = Yup.object().shape({
     name: Yup.string().min(2, "Requires at least 2 characters"),
     password: Yup.string().min(8, "Requires a minimum of 8 characters"),
@@ -33,15 +37,21 @@ const Form = ({ text, setter, state, endPoint, role, register, login }) => {
     setter({ ...state, [e.target.name]: e.target.value });
     validateChange(e);
   };
-  
-    const handleSubmit = (e, id) => {
-      e.preventDefault();
-    if(endPoint == 'register') {
-      register(state)
-    } else {
-      login(state)
+
+  const handleSubmit = (e, id) => {
+    e.preventDefault();
+    if (endPoint == "register" && role == "instructors") {
+      instructor_register(state);
+    } else if (endPoint == "login" && role == "instructors") {
+      instructor_login(state);
+      setLoggedIn(true);
+    } else if (endPoint == "register" && role == "clients") {
+      client_register(state);
+    } else if (endPoint == "login" && role == "clients") {
+      client_login(state);
+      setLoggedIn(true);
     }
-    //     if (role === 'clients' && text === 'Log in') { 
+    //     if (role === 'clients' && text === 'Log in') {
     //       setTimeout(() =>{
     //         history.push(`Client/${res.data.id}/${res.data.name}`)
     //       }, 1000)
@@ -49,9 +59,9 @@ const Form = ({ text, setter, state, endPoint, role, register, login }) => {
     //       setTimeout(() =>{
     //         history.push(`Instructor/${res.data.id}/${res.data.name}`)
     //       }, 1000)
-    };
-    return (
-      <>
+  };
+  return (
+    <>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -81,4 +91,9 @@ const Form = ({ text, setter, state, endPoint, role, register, login }) => {
   );
 };
 
-export default connect(null, { register, login })(Form);
+export default connect(null, {
+  instructor_register,
+  instructor_login,
+  client_register,
+  client_login,
+})(Form);

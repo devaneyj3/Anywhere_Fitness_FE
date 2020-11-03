@@ -18,7 +18,7 @@ function Dashboard({match, location}) {
 
     return (
         <>
-        <Nav url="/" />
+        <Nav url="/" loggedIn="true" />
         <hr />
         <h2>Welcome {name}</h2>
         <div className="options">

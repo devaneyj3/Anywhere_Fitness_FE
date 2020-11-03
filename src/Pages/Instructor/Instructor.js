@@ -1,21 +1,16 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Nav from "../../Components/Nav/Nav";
-import { Alert } from "reactstrap";
 import SignUp from "../../Components/SignUp/SignUp";
 import Login from "../../Components/Login/Login";
 import yoga from "../../images/yoga.jpg";
 import "./Instructor.scss";
 
-const Instructor = () => {
+const Instructor = (props) => {
     const [register, setRegister] = useState(false);
-    const [message, setMessage] = useState("");
-
-    const [apiError, setApiError] = useState("");
 
     const switchForm = (e) => {
         setRegister(!register);
-        setMessage("");
-        setApiError("");
     };
 
     return (
@@ -30,11 +25,13 @@ const Instructor = () => {
                             <SignUp
                                 role="instructors"
                                 registerForm={switchForm}
+                                {...props}
                             />
                         ) : (
                             <Login
                                 role="instructors"
                                 registerForm={switchForm}
+                                {...props}
                             />
                         )}
                     </section>
@@ -44,4 +41,15 @@ const Instructor = () => {
     );
 };
 
-export default Instructor;
+const mapStateToProps = (state) => {
+    let {instructor_login_message, instructor_login_apiError, instructor_status, instructor_name, instructor_id} = state.InstructorReducer
+        return {
+            message: instructor_login_message,
+            apiError: instructor_login_apiError,
+            name: instructor_name,
+            id: instructor_id,
+            status: instructor_status
+        };
+};
+
+export default connect(mapStateToProps, {})(Instructor);
