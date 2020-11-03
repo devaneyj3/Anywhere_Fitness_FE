@@ -11,10 +11,10 @@ const SignUp = (props) => {
 
     return (
         <>
-            {props.message ? (
-                <Alert color="success">{props.message}</Alert>
-            ) : props.apiError ? (
-                <Alert color="danger">{props.apiError}</Alert>
+            {props.register_message ? (
+                <Alert color="success">{props.register_message}</Alert>
+            ) : props.register_apiError ? (
+                <Alert color="danger">{props.register_apiError}</Alert>
             ) : null}
             <Form
                 setter={setSignup}
@@ -27,14 +27,6 @@ const SignUp = (props) => {
         </>
     );
 };
+ 
 
-const mapStateToProps = data => {
-    let { register_message, register_apiError } = data.InstructorReducer
-    return {
-        message: register_message,
-        apiError: register_apiError
-    }
-    
-}
-
-export default connect(mapStateToProps, {})(SignUp);
+export default SignUp;

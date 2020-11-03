@@ -28,10 +28,10 @@ const Login = (props) => {
 
     return (
         <>
-            {props.message ? (
-                <Alert color="success">{props.message}</Alert>
-            ) : props.apiError ? (
-                <Alert color="danger">{props.apiError}</Alert>
+            {props.login_message ? (
+                <Alert color="success">{props.login_message}</Alert>
+            ) : props.login_apiError ? (
+                <Alert color="danger">{props.login_apiError}</Alert>
             ) : null}
             <Form
                 state={login}

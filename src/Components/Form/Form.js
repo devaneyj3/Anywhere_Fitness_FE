@@ -51,14 +51,6 @@ const Form = ({ text, setter, state, endPoint, role, instructor_register, instru
       client_login(state);
       setLoggedIn(true);
     }
-    //     if (role === 'clients' && text === 'Log in') {
-    //       setTimeout(() =>{
-    //         history.push(`Client/${res.data.id}/${res.data.name}`)
-    //       }, 1000)
-    //     } else if (role === 'instructors'&& text === 'Log in' ){
-    //       setTimeout(() =>{
-    //         history.push(`Instructor/${res.data.id}/${res.data.name}`)
-    //       }, 1000)
   };
   return (
     <>

@@ -42,13 +42,15 @@ const Client = (props) => {
 };
 
 const mapStateToProps = (state, ) => {
-    let {client_login_message, client_login_apiError, client_status, client_name, client_id} = state.ClientReducer
+    let {client_login_message, client_login_apiError, client_status, client_name, client_id, client_register_message, client_register_apiError} = state.ClientReducer
         return {
-            message: client_login_message,
-            apiError: client_login_apiError,
+            login_message: client_login_message,
+            login_apiError: client_login_apiError,
             name: client_name,
             id: client_id,
-            status: client_status
+            status: client_status,
+            register_message: client_register_message,
+            register_apiError: client_register_apiError
         };
     
 };

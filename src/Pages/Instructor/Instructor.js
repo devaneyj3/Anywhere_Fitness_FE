@@ -42,10 +42,12 @@ const Instructor = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    let {instructor_login_message, instructor_login_apiError, instructor_status, instructor_name, instructor_id} = state.InstructorReducer
+    let {instructor_login_message, instructor_register_message, instructor_register_apiError, instructor_login_apiError, instructor_status, instructor_name, instructor_id} = state.InstructorReducer
         return {
-            message: instructor_login_message,
-            apiError: instructor_login_apiError,
+            login_message: instructor_login_message,
+            login_apiError: instructor_login_apiError,
+            register_apiError: instructor_register_apiError,
+            register_message: instructor_register_message,
             name: instructor_name,
             id: instructor_id,
             status: instructor_status
