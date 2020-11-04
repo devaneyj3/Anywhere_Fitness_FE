@@ -42,8 +42,8 @@ const Form = ({ text, setter, state, endPoint, role, instructor_register, instru
     if (endPoint === "register" && role === "instructors") {
       instructor_register(state);
     } else if (endPoint === "login" && role === "instructors") {
-      instructor_login(state);
       setLoggedIn(true);
+      instructor_login(state);
     } else if (endPoint === "register" && role === "clients") {
       client_register(state);
     } else if (endPoint === "login" && role === "clients") {

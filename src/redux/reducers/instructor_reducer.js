@@ -1,6 +1,7 @@
 import {
     INSTRUCTOR_REGISTER,
     INSTRUCTOR_LOGIN,
+    LOGOUT
 } from "../actions/instructor_actions";
 const initialState = {
     instructors: [],
@@ -10,6 +11,7 @@ const initialState = {
     instructor_login_apiError: "",
     instructor_name: "",
     instructor_id: "",
+    instructor_status: "",
 };
 
 const InstructorReducer = (state = initialState, action) => {
@@ -29,6 +31,11 @@ const InstructorReducer = (state = initialState, action) => {
                 instructor_status: action.status,
                 instructor_name: action.name,
                 instructor_id: action.id,
+            };
+            case LOGOUT:
+            return {
+                ...state,
+                instructor_status: action.state,
             };
         default:
             return state;

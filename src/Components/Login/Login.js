@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Alert } from "reactstrap";
 import Form from "../Form/Form";
 import { useHistory } from "react-router-dom";
@@ -13,17 +13,12 @@ const Login = (props) => {
     const [ loggedIn, setLoggedIn] = useState(false)
     const history = useHistory();
 
-    useEffect(() => {
-        setLoggedIn(false)
-    }, [setLoggedIn])
-
-
-    if (loggedIn == true && props.role === 'instructors') {
+    if (props.status == 200 && props.role === 'instructors') {
         setTimeout(() => {
             history.push(`/Instructor/${props.id}/${props.name}`);
         }, 1000);
     }
-    if (loggedIn === true && props.role === 'clients') {
+    if (props.status == 200 && props.role === 'clients') {
         setTimeout(() =>{
             history.push(`/Client/${props.id}/${props.name}`);
         }, 1000)
@@ -32,10 +27,9 @@ const Login = (props) => {
 
     return (
         <>
-        {/* TODO: YOU CAN STILL SIGN IN WITH EMPTY FIELDS */}
             {props.login_message && loggedIn === true ? (
                 <Alert color="success">{props.login_message}</Alert>
-            ) : props.login_apiError ? (
+            ) : props.login_apiError && loggedIn === true  ? (
                 <Alert color="danger">{props.login_apiError}</Alert>
             ) : null}
             <Form

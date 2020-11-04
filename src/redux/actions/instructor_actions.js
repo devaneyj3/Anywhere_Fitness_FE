@@ -1,6 +1,7 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 export const INSTRUCTOR_REGISTER = "INSTRUCTOR_REGISTER";
 export const INSTRUCTOR_LOGIN = "INSTRUCTOR_LOGIN";
+export const LOGOUT = "LOGOUT"
 
 export const instructor_register = (data) => async (dispatch) => {
 
@@ -24,4 +25,8 @@ export const instructor_login = (data) => async (dispatch) => {
   } catch (err) {
     dispatch({ type: INSTRUCTOR_LOGIN, apiError: err.response.data.message });
   }
+};
+
+export const logout = () => (dispatch) => {
+    dispatch({ type: LOGOUT, state: '' });
 };
