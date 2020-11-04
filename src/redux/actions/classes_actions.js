@@ -8,7 +8,7 @@ export const create_class = (data, id) => async dispatch => {
     const response = await axiosWithAuth().post(`/instructors/${id}/classes`, data)
     dispatch({type: INSTRUCTOR_CREATECLASS, payload: response.data,message: 'You have successfully created a new class'})
   } catch (error) {
-    dispatch({type: INSTRUCTOR_DELETECLASS, failure: error.response.data.message})
+    dispatch({type: INSTRUCTOR_CREATECLASS, failure: error.response.data.message})
     
   }
 }
@@ -19,6 +19,18 @@ export const instructor_class = (id) => async dispatch => {
     dispatch({type: INSTRUCTOR_GETCLASS, payload: response.data})
   } catch (error) {
     dispatch({type: INSTRUCTOR_GETCLASS})
+    
+  }
+}
+
+export const delete_class = (id) => async dispatch => {
+  
+  try {
+    const response = await axiosWithAuth().delete(`/classes/${id}/`)
+    console.log(response.data)
+    dispatch({type: INSTRUCTOR_DELETECLASS, payload: response.data})
+  } catch (error) {
+    dispatch({type: INSTRUCTOR_DELETECLASS})
     
   }
 }

@@ -28,8 +28,8 @@ const ClassesReducer = (state = INITIAL_STATE, action) => {
             };
         case INSTRUCTOR_DELETECLASS:
             return {
-                ...state,
-                classes: [...state.instructors, action.payload],
+              ...state,
+                instructor_classes: [...state.instructor_classes.filter((item) => item.id !== action.payload)]
             };
         default:
             return state;

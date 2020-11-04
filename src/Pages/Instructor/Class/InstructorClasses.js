@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { instructor_class } from "../../../redux/actions/classes_actions";
+import { instructor_class, delete_class } from "../../../redux/actions/classes_actions";
 import { connect } from "react-redux";
 import { Button, Table } from "reactstrap";
 import Nav from "../../../Components/Nav/Nav"
 import { Alert } from "reactstrap";
 import "./InstructorClasses.scss";
-const InstructorClasses = ({ match, location, instructor_class, classes }) => {
+const InstructorClasses = ({ match, location, instructor_class, classes, delete_class }) => {
 
     const { name, id } = match.params;
     
@@ -15,15 +15,7 @@ const InstructorClasses = ({ match, location, instructor_class, classes }) => {
 
 
     const deleteClass = async (item) => {
-        // const classId = await axiosWithAuth().delete(`/classes/${item.id}`);
-        // console.log('classId is', classId.data, 'and type, ', typeof(classId.data))
-        // console.log('item.id is', item.id, 'and type, ', typeof(item.id))
-        // console.log('session.data before filter in delete class function is, ', session)
-
-        // //TODO: filter for state is not working. When I call delete on a class that class still shows up in the class search and reserve class. 
-        // setSession( session.filter(({ id }) => id !== classId.data));
-        // console.log('session.data before filter in delete class function is, ', session)
-        // setClasses( classes.filter(({ id }) => id !== classId.data));
+        delete_class(item.id);
 
     };
     return (
@@ -81,7 +73,6 @@ const mapStateToProps = state => {
     const { instructor_classes } = state.ClassesReducer
     return {
         classes: instructor_classes
-
     }
 }
-export default connect(mapStateToProps, { instructor_class })(InstructorClasses);
+export default connect(mapStateToProps, { instructor_class, delete_class })(InstructorClasses);
