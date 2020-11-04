@@ -2,7 +2,17 @@ import axiosWithAuth from "../../utils/axiosWithAuth";
 export const INSTRUCTOR_CREATECLASS = "INSTRUCTOR_CREATECLASS";
 export const INSTRUCTOR_DELETECLASS = "INSTRUCTOR_DELETECLASS";
 export const INSTRUCTOR_GETCLASS = "INSTRUCTOR_GETCLASS";
+export const GETCLASS = "GETCLASS";
 
+export const get_classes = () => async dispatch =>{
+  try {
+    const response = await axiosWithAuth().get('/classes/')
+    dispatch({type: GETCLASS, payload: response.data})
+  }
+  catch (err) {
+    dispatch({type: GETCLASS, message: err.response.data.message})
+  }
+}
 export const create_class = (data, id) => async dispatch => {
   try {
     const response = await axiosWithAuth().post(`/instructors/${id}/classes`, data)

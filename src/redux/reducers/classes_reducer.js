@@ -2,6 +2,7 @@ import {
     INSTRUCTOR_CREATECLASS,
     INSTRUCTOR_DELETECLASS,
     INSTRUCTOR_GETCLASS,
+    GETCLASS
 } from "../actions/classes_actions";
 
 const INITIAL_STATE = {
@@ -14,7 +15,13 @@ const INITIAL_STATE = {
 
 const ClassesReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case INSTRUCTOR_CREATECLASS:
+      case GETCLASS:
+            return {
+                ...state,
+                classes: action.payload,
+                classes_errorMessage: action.message,
+            };  
+      case INSTRUCTOR_CREATECLASS:
             return {
                 ...state,
                 classes: [...state.classes, action.payload],

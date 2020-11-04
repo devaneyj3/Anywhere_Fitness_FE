@@ -1,26 +1,27 @@
-import React, { useContext } from "react";
-import { InitialContext } from "../../contexts/InitialContext";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { get_classes } from '../../redux/actions/classes_actions';
 import { Alert, Table, Button } from "reactstrap";
-import axiosWithAuth from "../../utils/axiosWithAuth";
 
-const Classes = ({ reserve, clientID, setMessage, data }) => {
-    const { session, setSession } = useContext(InitialContext);
-    console.log('session in class',session)
-    const reserveClass = async (classes, e) => {
-        e.target.setAttribute("disabled", "disabled");
-        await axiosWithAuth().post(`clients/${clientID}/classes/${classes.id}`);
-        setMessage(`You have added this ${classes.name}`);
-        // TODO: class atendee number is not going up in the reserve page for the client but it is when I click on the reserve button for the next class
-        await axiosWithAuth().put(`classes/${classes.id}/`, {
-            ...classes,
-            attendees: (classes.attendees += 1),
-        });
-        setSession([...session, {attendees : session.attendees += 1}] )
-    };
-//
+const Classes = ({ reserve, clientID, setMessage, data, classes, get_classes }) => {
+
+    useEffect(() => {
+        get_classes()
+    },[get_classes])
+    // const reserveClass = async (classes, e) => {
+    //     e.target.setAttribute("disabled", "disabled");
+    //     await axiosWithAuth().post(`clients/${clientID}/classes/${classes.id}`);
+    //     setMessage(`You have added this ${classes.name}`);
+    //     // TODO: class atendee number is not going up in the reserve page for the client but it is when I click on the reserve button for the next class
+    //     await axiosWithAuth().put(`classes/${classes.id}/`, {
+    //         ...classes,
+    //         attendees: (classes.attendees += 1),
+    //     });
+    //     setSession([...session, {attendees : session.attendees += 1}] )
+    // };
     return (
         <>
-            {session.length < 1 ? (
+            {classes.length < 1 ? (
                 <Alert color="danger">
                     There are no classes to chose from.
                 </Alert>
@@ -41,12 +42,12 @@ const Classes = ({ reserve, clientID, setMessage, data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {session.map((classes, index) => (
+                    {classes.map((classes, index) => (
                         <tr key={classes.id}>
                             {reserve ? (
                                 <Button
                                     name={classes.id}
-                                    onClick={(e) => reserveClass(classes, e)}
+                                    // onClick={(e) => reserveClass(classes, e)}
                                     color="success"
                                     disabled={
                                         data.length > 1 &&
@@ -81,4 +82,11 @@ const Classes = ({ reserve, clientID, setMessage, data }) => {
     );
 };
 
-export default Classes;
+const mapStateToProps = state => {
+    const { classes } = state.ClassesReducer;
+    return {
+        classes: classes
+    }
+}
+
+export default connect(mapStateToProps, { get_classes })(Classes);

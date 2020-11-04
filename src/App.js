@@ -2,7 +2,6 @@ import React from "react";
 
 import "./App.scss";
 import { Route } from "react-router-dom";
-import { FitnessContext } from "./contexts/InitialContext";
 import LandingPage from "./Pages/Landing_Page/Landing_Page";
 import ClientSignUp from "./Pages/Client/Client";
 import ClassSearch from "./Pages/Search/Search";
@@ -17,7 +16,6 @@ function App() {
     return (
         <>
             <div className="App">
-                <FitnessContext>
                     <Route exact path="/" component={LandingPage} />
                     <Route
                         exact
@@ -51,7 +49,6 @@ function App() {
                         path="/InstructorAuth"
                         component={Instructor}
                     />
-                </FitnessContext>
             </div>
         </>
     );
