@@ -13,12 +13,12 @@ const Login = (props) => {
     const [ loggedIn, setLoggedIn] = useState(false)
     const history = useHistory();
 
-    if (props.status == 200 && props.role === 'instructors') {
+    if (props.status === 200 && props.role === 'instructors') {
         setTimeout(() => {
             history.push(`/Instructor/${props.id}/${props.name}`);
         }, 1000);
     }
-    if (props.status == 200 && props.role === 'clients') {
+    if (props.status === 200 && props.role === 'clients') {
         setTimeout(() =>{
             history.push(`/Client/${props.id}/${props.name}`);
         }, 1000)

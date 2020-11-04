@@ -44,6 +44,7 @@ const CreateClass = ({ match, create_class, message }) => {
   };
   return (
     <>
+    {/* TODO: FIX BUG THAT DISPLAYS SUCCESS MESSAGE WHEN NEW INSTRUCTER SIGNS IN WHEN A PREVIOUS INSTRUCTOR CREATED A CLASS */}
       <Nav url={`/Instructor/${id}/${name}`} />
       <h1>Create Class for {name}</h1>
       {message ? <Alert color="success">{message}</Alert> : null}
