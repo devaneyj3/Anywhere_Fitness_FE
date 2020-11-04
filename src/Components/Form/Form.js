@@ -13,7 +13,6 @@ const Form = ({ text, setter, state, endPoint, role, instructor_register, instru
     name: Yup.string().min(2, "Requires at least 2 characters"),
     password: Yup.string().min(8, "Requires a minimum of 8 characters"),
   });
-
   const [errors, setErrors] = useState({
     username: "",
     password: "",
