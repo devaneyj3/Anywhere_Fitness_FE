@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { get_classes, client_add_class } from '../../redux/actions/classes_actions';
 import { Alert, Table, Button } from "reactstrap";
 
-const Classes = ({ reserve, clientID, classes, get_classes, client_add_class }) => {
+const Classes = ({ reserve, clientID, classes, get_classes, client_add_class, client_classes }) => {
 
     useEffect(() => {
         get_classes()
@@ -41,37 +41,38 @@ const Classes = ({ reserve, clientID, classes, get_classes, client_add_class }) 
                     </tr>
                 </thead>
                 <tbody>
-                    {classes.map((classes, index) => (
-                        <tr key={classes.id}>
+                    {classes.map((session, index) => (
+                        <tr key={session.id}>
                             {reserve ? (
                                 <Button
-                                    name={classes.id}
-                                    onClick={(e) => reserveClass(classes, e)}
+                                    name={session.id}
+                                    onClick={(e) => reserveClass(session, e)}
                                     color="success"
-                                    // disabled={
-                                    //     classes.filter(
-                                    //         (item) => item.id === classes.id
-                                    //     )
-                                    //         ? true
-                                    //         : false
-                                    // }
+                                    disabled={
+                                        // BUG-TODO: filter and show reserve button option if the user does not have that class reserved
+                                        client_classes.filter(
+                                            (item) => item.id === session.id
+                                        )
+                                            ? true
+                                            : false
+                                    }
                                 >
                                     Reserve
                                 </Button>
                             ) : (
                                 <th scope="row">{index + 1}</th>
                             )}
-                            <td>{classes.name}</td>
-                            <td>{classes.type}</td>
+                            <td>{session.name}</td>
+                            <td>{session.type}</td>
                             <td style={{ textTransform: "capitalize" }}>
-                                {classes.instructor_name}
+                                {session.instructor_name}
                             </td>
-                            <td>{classes.duration} hr</td>
-                            <td>{classes.startTime} PM</td>
-                            <td>{classes.intensityLevel}</td>
-                            <td>{classes.location}</td>
-                            <td>{classes.attendees}</td>
-                            <td>{classes.maxClassSize}</td>
+                            <td>{session.duration} hr</td>
+                            <td>{session.startTime} PM</td>
+                            <td>{session.intensityLevel}</td>
+                            <td>{session.location}</td>
+                            <td>{session.attendees}</td>
+                            <td>{session.maxClassSize}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -82,8 +83,10 @@ const Classes = ({ reserve, clientID, classes, get_classes, client_add_class }) 
 
 const mapStateToProps = state => {
     const { classes } = state.ClassesReducer;
+    const { client_classes } = state.ClientReducer;
     return {
-        classes: classes
+        classes: classes,
+        client_classes: client_classes
     }
 }
 
