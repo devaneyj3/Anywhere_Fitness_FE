@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { get_classes, client_add_class } from '../../redux/actions/classes_actions';
+import { get_classes, client_add_class, update_attendees } from '../../redux/actions/classes_actions';
 import { Alert, Table, Button } from "reactstrap";
 
-const Classes = ({ reserve, clientID, classes, get_classes, client_add_class, client_classes }) => {
+const Classes = ({ reserve, clientID, classes, get_classes, client_add_class, client_classes, update_attendees }) => {
 
     useEffect(() => {
         get_classes()
@@ -11,12 +11,9 @@ const Classes = ({ reserve, clientID, classes, get_classes, client_add_class, cl
     const reserveClass = async (classes, e) => {
         e.target.setAttribute("disabled", "disabled");
         client_add_class(clientID, classes.id, classes.name)
+        update_attendees(classes.id)
     //     // TODO: class atendee number is not going up in the reserve page for the client but it is when I click on the reserve button for the next class
-    //     await axiosWithAuth().put(`classes/${classes.id}/`, {
-    //         ...classes,
-    //         attendees: (classes.attendees += 1),
-    //     });
-    //     setSession([...session, {attendees : session.attendees += 1}] )
+    
     };
     return (
         <>
@@ -48,14 +45,14 @@ const Classes = ({ reserve, clientID, classes, get_classes, client_add_class, cl
                                     name={session.id}
                                     onClick={(e) => reserveClass(session, e)}
                                     color="success"
-                                    disabled={
-                                        // BUG-TODO: filter and show reserve button option if the user does not have that class reserved
-                                        client_classes.filter(
-                                            (item) => item.id === session.id
-                                        )
-                                            ? true
-                                            : false
-                                    }
+                                    // disabled={
+                                    //     // BUG-TODO: filter and show reserve button option if the user does not have that class reserved
+                                    //     client_classes.filter(
+                                    //         (item) => item.id === session.id
+                                    //     )
+                                    //         ? true
+                                    //         : false
+                                    // }
                                 >
                                     Reserve
                                 </Button>
@@ -90,4 +87,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { get_classes, client_add_class })(Classes)
+export default connect(mapStateToProps, { get_classes, client_add_class, update_attendees })(Classes)
