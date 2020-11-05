@@ -83,10 +83,13 @@ const mapStateToProps = (state) => {
     const { classes } = state.ClassesReducer;
     return {
 <<<<<<< HEAD
+<<<<<<< HEAD
         classes: classes,
     };
 };
 =======
+=======
+>>>>>>> parent of 61806f5... add in comments to fix a bug
         classes: classes
     }
 }
