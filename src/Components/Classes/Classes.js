@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import { get_classes } from "../../redux/actions/classes_actions";
 import ClassInfo from "./ClassInfo";
+=======
+import { get_classes, client_add_class } from '../../redux/actions/classes_actions';
+import { Alert, Table, Button } from "reactstrap";
+
+const Classes = ({ reserve, clientID, classes, get_classes, client_add_class }) => {
+>>>>>>> parent of 61806f5... add in comments to fix a bug
 
 const Classes = ({ classes, get_classes }) => {
     useEffect(() => {
@@ -84,10 +91,13 @@ const mapStateToProps = (state) => {
     return {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         classes: classes,
     };
 };
 =======
+=======
+>>>>>>> parent of 61806f5... add in comments to fix a bug
 =======
 >>>>>>> parent of 61806f5... add in comments to fix a bug
         classes: classes
