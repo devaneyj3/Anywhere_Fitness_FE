@@ -1,24 +1,23 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { get_classes } from '../../redux/actions/classes_actions';
+import { get_classes, client_add_class } from '../../redux/actions/classes_actions';
 import { Alert, Table, Button } from "reactstrap";
 
-const Classes = ({ reserve, clientID, setMessage, data, classes, get_classes }) => {
+const Classes = ({ reserve, clientID, classes, get_classes, client_add_class }) => {
 
     useEffect(() => {
         get_classes()
     },[get_classes])
-    // const reserveClass = async (classes, e) => {
-    //     e.target.setAttribute("disabled", "disabled");
-    //     await axiosWithAuth().post(`clients/${clientID}/classes/${classes.id}`);
-    //     setMessage(`You have added this ${classes.name}`);
+    const reserveClass = async (classes, e) => {
+        e.target.setAttribute("disabled", "disabled");
+        client_add_class(clientID, classes.id, classes.name)
     //     // TODO: class atendee number is not going up in the reserve page for the client but it is when I click on the reserve button for the next class
     //     await axiosWithAuth().put(`classes/${classes.id}/`, {
     //         ...classes,
     //         attendees: (classes.attendees += 1),
     //     });
     //     setSession([...session, {attendees : session.attendees += 1}] )
-    // };
+    };
     return (
         <>
             {classes.length < 1 ? (
@@ -47,16 +46,15 @@ const Classes = ({ reserve, clientID, setMessage, data, classes, get_classes }) 
                             {reserve ? (
                                 <Button
                                     name={classes.id}
-                                    // onClick={(e) => reserveClass(classes, e)}
+                                    onClick={(e) => reserveClass(classes, e)}
                                     color="success"
-                                    disabled={
-                                        data.length > 1 &&
-                                        data.filter(
-                                            (item) => item.id === data.id
-                                        )
-                                            ? true
-                                            : false
-                                    }
+                                    // disabled={
+                                    //     classes.filter(
+                                    //         (item) => item.id === classes.id
+                                    //     )
+                                    //         ? true
+                                    //         : false
+                                    // }
                                 >
                                     Reserve
                                 </Button>
@@ -89,4 +87,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { get_classes })(Classes);
+export default connect(mapStateToProps, { get_classes, client_add_class })(Classes)

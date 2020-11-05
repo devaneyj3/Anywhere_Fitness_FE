@@ -3,6 +3,7 @@ export const CLIENT_REGISTER = "CLIENT_REGISTER";
 export const CLIENT_DELETECLASS = "CLIENT_DELETECLASS";
 export const CLIENT_LOGIN = "CLIENT_LOGIN";
 export const CLIENT_RESERVECLASS = "CLIENT_RESERVECLASS";
+export const CLIENT_CLASS = "CLIENT_CLASS";
 
 export const client_register = (data) => async (dispatch) => {
 
@@ -25,5 +26,14 @@ export const client_login = (data) => async (dispatch) => {
     localStorage.setItem("token", response.data.token);
   } catch (err) {
     dispatch({ type: CLIENT_LOGIN, apiError: err.response.data.message });
+  }
+};
+export const client_class = (clientID) => async (dispatch) => {
+
+  try {
+    const response = await axiosWithAuth().get(`/clients/${clientID}/classes`);
+    dispatch({ type: CLIENT_CLASS, payload: response.data, message: response.data.message });
+    } catch (err) {
+    dispatch({ type: CLIENT_CLASS, apiError: err.response.data.message });
   }
 };

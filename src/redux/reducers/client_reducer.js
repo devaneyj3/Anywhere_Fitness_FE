@@ -1,4 +1,4 @@
-import { CLIENT_REGISTER, CLIENT_LOGIN, CLIENT_DELETECLASS, CLIENT_RESERVECLASS} from '../actions/client_actions';
+import { CLIENT_REGISTER, CLIENT_LOGIN, CLIENT_DELETECLASS, CLIENT_RESERVECLASS, CLIENT_CLASS} from '../actions/client_actions';
 const initialState = {
   clients: [],
   client_register_message: '',
@@ -7,6 +7,7 @@ const initialState = {
   client_login_apiError: '', 
   client_name: '',
   client_id: '',
+  client_classes: []
 }
 
 const ClientReducer = (state = initialState, action) => {
@@ -30,10 +31,12 @@ const ClientReducer = (state = initialState, action) => {
         client_name: action.name,
         client_id: action.id
       }
-      case CLIENT_RESERVECLASS:
+      case CLIENT_CLASS:
       return {
         ...state,
-        clients: [...state.clients, action.payload]
+        client_classes: action.payload,
+        client_message: action.message,
+        client_class_error: action.apiError
       }
       case CLIENT_DELETECLASS:
       return {

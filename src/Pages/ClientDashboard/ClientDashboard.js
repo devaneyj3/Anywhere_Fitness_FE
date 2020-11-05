@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Alert, Table } from "reactstrap";
+import { client_class } from '../../redux/actions/client_actions';
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Nav from "../../Components/Nav/Nav";
-import axiosWithAuth from "../../utils/axiosWithAuth";
 
-const ClientDashboard = ({ match }) => {
+const ClientDashboard = ({ match, client_class, client_sessions }) => {
     const { name, clientID } = match.params;
-    const [data, setData] = useState([]);
-    useEffect(() => {
+        useEffect(() => {
         const clientCall = async () => {
-            let res = await axiosWithAuth().get(`clients/${clientID}/classes`);
-            setData(res.data);
-        
+            client_class(clientID)
         };
         clientCall();
-    }, [clientID]);
+    }, [clientID, client_class]);
 
     return (
         <>
@@ -24,8 +22,7 @@ const ClientDashboard = ({ match }) => {
                 to={{
                     pathname: `/reserveClass/${clientID}`,
                     state:  { 
-                        url: match.url,
-                        data:data
+                        url: match.url
                     }
                     
                 }}
@@ -33,7 +30,7 @@ const ClientDashboard = ({ match }) => {
                 Reserve a Class
             </Link>
             <p>Here are your classes:</p>
-            {data < 1 ? (
+            {client_sessions < 1 ? (
                 <Alert color="danger">You have no classes</Alert>
             ) : null}
             <Table>
@@ -50,7 +47,7 @@ const ClientDashboard = ({ match }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((session, index) => {
+                    {client_sessions.map((session, index) => {
                         return (
                             <tr key={index}>
                                 <th scope="row">{index + 1}</th>
@@ -72,4 +69,11 @@ const ClientDashboard = ({ match }) => {
     );
 };
 
-export default ClientDashboard;
+const mapStateToProps = state => {
+    const { client_classes } = state.ClientReducer
+    return {
+        client_sessions: client_classes
+    }
+}
+
+export default connect(mapStateToProps, { client_class })(ClientDashboard);

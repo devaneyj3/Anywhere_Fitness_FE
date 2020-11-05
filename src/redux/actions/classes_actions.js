@@ -3,6 +3,7 @@ export const INSTRUCTOR_CREATECLASS = "INSTRUCTOR_CREATECLASS";
 export const INSTRUCTOR_DELETECLASS = "INSTRUCTOR_DELETECLASS";
 export const INSTRUCTOR_GETCLASS = "INSTRUCTOR_GETCLASS";
 export const GETCLASS = "GETCLASS";
+export const CLIENT_ADD_CLASS = "CLIENT_ADD_CLASS";
 
 export const get_classes = () => async dispatch =>{
   try {
@@ -37,10 +38,14 @@ export const delete_class = (id) => async dispatch => {
   
   try {
     const response = await axiosWithAuth().delete(`/classes/${id}/`)
-    console.log(response.data)
     dispatch({type: INSTRUCTOR_DELETECLASS, payload: response.data})
   } catch (error) {
     dispatch({type: INSTRUCTOR_DELETECLASS})
     
   }
+}
+
+export const client_add_class = (clientID, classID, className) => async (dispatch) => {
+  await axiosWithAuth().post(`clients/${clientID}/classes/${classID}`);
+  dispatch({type: CLIENT_ADD_CLASS, message: 'You have added ' + className})
 }
