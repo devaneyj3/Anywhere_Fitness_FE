@@ -1,4 +1,5 @@
 import { CLIENT_REGISTER, CLIENT_LOGIN, CLIENT_DELETECLASS, CLIENT_CLASS} from '../actions/client_actions';
+import {LOGOUT} from '../actions/instructor_actions';
 const initialState = {
   clients: [],
   client_register_message: '',
@@ -7,6 +8,7 @@ const initialState = {
   client_login_apiError: '', 
   client_name: '',
   client_id: '',
+  client_status: '',
   client_classes: []
 }
 
@@ -43,6 +45,12 @@ const ClientReducer = (state = initialState, action) => {
         ...state,
         classes: [...state.clients, action.payload]
       }
+      case LOGOUT:
+      return {
+        ...state,
+        client_status: action.status
+      }
+      
       default:
         return state
   }
