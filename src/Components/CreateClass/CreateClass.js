@@ -3,10 +3,11 @@ import { connect} from "react-redux";
 import { create_class } from '../../redux/actions/classes_actions';
 import Nav from "../Nav/Nav";
 import { Alert } from "reactstrap";
+import  moment  from 'moment';
 
 const CreateClass = ({ match, create_class, message }) => {
   const { id, name } = match.params;
-  
+
   const [data, setData] = useState({
     name: "",
     type: "",
@@ -16,17 +17,18 @@ const CreateClass = ({ match, create_class, message }) => {
     location: "",
     maxClassSize: "",
   });
-  
-  
+
+
   const handleSubmit = async (e) => {
-    console.log('create class')
+    let time = moment(data.startTime).format('YYYY-MM-DD hh:mm:ss a')
+    console.log(time)
     e.preventDefault();
     data.instructor_id = parseInt(id)
     data.instructor_name = name
     data.attendees = 0
     create_class(data, id)
     data.maxClassSize = parseInt(data.maxClassSize)
-    data.startTime = parseInt(data.startTime);
+    data.startTime = time;
     data.duration = parseInt(data.duration)
     setData({
       name: "",
@@ -38,7 +40,7 @@ const CreateClass = ({ match, create_class, message }) => {
       maxClassSize: "",
     });
   };
-  
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -69,7 +71,7 @@ const CreateClass = ({ match, create_class, message }) => {
           value={data.startTime}
           onChange={handleChange}
           placeholder="Start Time"
-          
+
         ></input>
         <input
           type="number"
