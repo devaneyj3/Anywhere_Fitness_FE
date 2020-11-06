@@ -14,7 +14,6 @@ const Classes = ({
     client_add_class,
     update_attendees,
 }) => {
-    
     const reserveClass = async (classes, e) => {
         e.target.setAttribute("disabled", "disabled");
         client_add_class(clientID, classes.id, classes.name);
