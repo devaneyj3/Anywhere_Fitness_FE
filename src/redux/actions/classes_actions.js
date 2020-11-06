@@ -4,6 +4,7 @@ export const INSTRUCTOR_DELETECLASS = "INSTRUCTOR_DELETECLASS";
 export const INSTRUCTOR_GETCLASS = "INSTRUCTOR_GETCLASS";
 export const GETCLASS = "GETCLASS";
 export const CLIENT_ADD_CLASS = "CLIENT_ADD_CLASS";
+export const UPDATE_ATTENDEES = "UPDATE_ATTENDEES";
 
 export const get_classes = () => async dispatch =>{
   try {
@@ -47,5 +48,10 @@ export const delete_class = (id) => async dispatch => {
 
 export const client_add_class = (clientID, classID, className) => async (dispatch) => {
   await axiosWithAuth().post(`clients/${clientID}/classes/${classID}`);
-  dispatch({type: CLIENT_ADD_CLASS, message: 'You have added ' + className})
+  dispatch({type: CLIENT_ADD_CLASS, id: classID, message: 'You have added ' + className})
+}
+
+export const update_attendees = (classID) => async (dispatch) => {
+  await axiosWithAuth().put(`classes/${classID}/updateAttendees`);
+  dispatch({type: UPDATE_ATTENDEES, message: 'You have reserved this class'})
 }

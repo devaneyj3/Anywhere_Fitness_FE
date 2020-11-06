@@ -2,7 +2,8 @@ import {
     INSTRUCTOR_CREATECLASS,
     INSTRUCTOR_DELETECLASS,
     INSTRUCTOR_GETCLASS,
-    GETCLASS
+    GETCLASS,
+    CLIENT_ADD_CLASS
 } from "../actions/classes_actions";
 
 const INITIAL_STATE = {
@@ -38,6 +39,12 @@ const ClassesReducer = (state = INITIAL_STATE, action) => {
               ...state,
                 instructor_classes: [...state.instructor_classes.filter((item) => item.id !== action.payload)]
             };
+            case CLIENT_ADD_CLASS:
+            return {
+                ...state,
+                classes: [...state.classes.filter((item) => item.id !== action.id)]
+            };
+            // filter if class.id does not equal reserve class id show it in the classes to reserve
         default:
             return state;
     }

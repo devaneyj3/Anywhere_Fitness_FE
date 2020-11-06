@@ -1,4 +1,4 @@
-import { CLIENT_REGISTER, CLIENT_LOGIN, CLIENT_DELETECLASS, CLIENT_RESERVECLASS, CLIENT_CLASS} from '../actions/client_actions';
+import { CLIENT_REGISTER, CLIENT_LOGIN, CLIENT_DELETECLASS, CLIENT_CLASS} from '../actions/client_actions';
 const initialState = {
   clients: [],
   client_register_message: '',
