@@ -7,7 +7,7 @@ import "./Nav.scss";
 
 const Nav = ({ url, loggedIn, logout }) => {
     const signout = () => {
-        // localStorage.removeItem('token');
+        localStorage.removeItem('token');
         logout()
     }
     return (

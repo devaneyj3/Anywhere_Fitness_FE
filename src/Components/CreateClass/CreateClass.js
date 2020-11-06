@@ -20,7 +20,7 @@ const CreateClass = ({ match, create_class, message }) => {
 
 
   const handleSubmit = async (e) => {
-    let time = moment(data.startTime).format('YYYY-MM-DD hh:mm:ss a')
+    let time = moment(data.startTime).format('YYYY-MM-DD hh:mm:ss')
     console.log(time)
     e.preventDefault();
     data.instructor_id = parseInt(id)
