@@ -13,17 +13,21 @@ const ReserveClass = ({ classes, get_classes, location, match, client_classes })
         get_classes();
     }, [get_classes]);
 
+    const clientEnrolledClassIds = client_classes.map(cls => cls.id)
+
+    const availableClasses = classes.filter(cls => !clientEnrolledClassIds.includes(cls.id))
+
     return (
         <>
             <Nav url={location.state.url} />
             {/* {message ? <Alert color="success">{message}</Alert> : null} */}
-            {classes.length < 1 ? (
+            {availableClasses.length < 1 ? (
                 <Alert color="danger">
                     There are no classes to chose from.
                 </Alert>
             ) : null}
             <TableInfo>
-                {classes.map((session, index) => (
+                {availableClasses.map((session, index) => (
                     <Classes
                         session={session}
                         index={index}
