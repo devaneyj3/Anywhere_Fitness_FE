@@ -3,7 +3,7 @@ import { Table } from "reactstrap";
 import "./table_info.scss";
 const TableInfo = (props) => {
     return (
-        <Table>
+        <Table responsive>
             <thead>
                 <tr>
                     <th></th>
